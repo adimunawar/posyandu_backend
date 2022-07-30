@@ -5,4 +5,4 @@
 
 # Conventional directory for build output.
 build/
-bin/config/database.dart
+bin/config/

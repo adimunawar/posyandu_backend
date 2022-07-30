@@ -3,7 +3,6 @@ import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 import '../config/database.dart';
 import '../helper/helper.dart';
-import 'package:intl/intl.dart';
 
 class ChildrenServices {
   Router get router {
@@ -161,6 +160,28 @@ class ChildrenServices {
               message: 'berhasil', status: true, data: childrenData)),
           headers: responseHeaders);
     });
+    //get detail data riwayat timbang bayi,
+
+    router.get('/getRiwayatTimbangan/<id>', (Request req, String id) async {
+      int idBaby = int.parse(id);
+      try {
+        var historyTimbangan = await db.query(
+            'SELECT * FROM childrens INNER JOIN history_anak ON childrens.id = history_anak.id_anak');
+
+        return Response.ok(
+            jsonEncode(responseFormater(
+                message: 'berhasil',
+                status: true,
+                data: historyTimbangan.rows)),
+            headers: responseHeaders);
+      } catch (e) {
+        return Response.ok(
+            jsonEncode(
+                responseFormater(message: 'berhasil', status: true, data: [])),
+            headers: responseHeaders);
+      }
+    });
+
     return router;
   }
 }
