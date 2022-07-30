@@ -137,6 +137,18 @@ class MotherServices {
               message: 'berhasil', status: true, data: childrenData)),
           headers: responseHeaders);
     });
+
+    //get ibu hamil join with table ibu
+    router.get('/ibuHamilByStaf/<id>', (Request req, String id) async {
+      int idStaf = int.parse(id);
+      var ibuHamil = await db.query(
+          'SELECT * FROM tb_ibu INNER JOIN hostory_ibu ON tb_ibu.id = hostory_ibu.id_ibu WHERE tb_ibu.id_staf = $idStaf');
+
+      return Response.ok(
+          jsonEncode(responseFormater(
+              message: 'berhasil', status: true, data: ibuHamil.rows)),
+          headers: responseHeaders);
+    });
     return router;
   }
 }
