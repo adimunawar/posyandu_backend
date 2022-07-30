@@ -2,5 +2,7 @@
 .dart_tool/
 .packages
 
+
 # Conventional directory for build output.
 build/
+bin/config/database.dart
