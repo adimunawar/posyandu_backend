@@ -160,19 +160,73 @@ class ChildrenServices {
               message: 'berhasil', status: true, data: childrenData)),
           headers: responseHeaders);
     });
-    //get detail data riwayat timbang bayi,
 
+//Get list data imunisasi,
+    router.get('/getListImunisasi/<id>', (Request req, String id) async {
+      int idStaf = int.parse(id);
+      try {
+        var listTimbangan = await db.query(
+            'SELECT * FROM childrens WHERE is_imunisasi=1 AND id_staf=$idStaf');
+
+        return Response.ok(
+            jsonEncode(responseFormater(
+                message: 'berhasil', status: true, data: listTimbangan.rows)),
+            headers: responseHeaders);
+      } catch (e) {
+        return Response.ok(
+            jsonEncode(
+                responseFormater(message: 'gagal', status: true, data: [])),
+            headers: responseHeaders);
+      }
+    });
+    //Get list data timbangan,
+    router.get('/getListTimbangan/<id>', (Request req, String id) async {
+      int idStaf = int.parse(id);
+      try {
+        var listTimbangan = await db.query(
+            'SELECT * FROM childrens WHERE is_timbangan=1 AND id_staf=$idStaf');
+
+        return Response.ok(
+            jsonEncode(responseFormater(
+                message: 'berhasil', status: true, data: listTimbangan.rows)),
+            headers: responseHeaders);
+      } catch (e) {
+        return Response.ok(
+            jsonEncode(
+                responseFormater(message: 'gagal', status: true, data: [])),
+            headers: responseHeaders);
+      }
+    });
+    //get detail data riwayat timbang bayi,
     router.get('/getRiwayatTimbangan/<id>', (Request req, String id) async {
       int idBaby = int.parse(id);
       try {
-        var historyTimbangan = await db.query(
-            'SELECT * FROM childrens INNER JOIN history_anak ON childrens.id = history_anak.id_anak');
-
+        var historyTimbangan =
+            await db.query('SELECT * FROM tb_timbangan WHERE id_anak=$idBaby');
         return Response.ok(
             jsonEncode(responseFormater(
                 message: 'berhasil',
                 status: true,
                 data: historyTimbangan.rows)),
+            headers: responseHeaders);
+      } catch (e) {
+        return Response.ok(
+            jsonEncode(
+                responseFormater(message: 'berhasil', status: true, data: [])),
+            headers: responseHeaders);
+      }
+    });
+    //get detail imunisasi,
+    router.get('/getDetailImunisasi/<id>', (Request req, String id) async {
+      int idBaby = int.parse(id);
+      try {
+        var historyImunisasi =
+            await db.query('SELECT * FROM tb_imunisasi WHERE id_anak=$idBaby');
+        return Response.ok(
+            jsonEncode(responseFormater(
+                message: 'berhasil',
+                status: true,
+                data: historyImunisasi.rows)),
             headers: responseHeaders);
       } catch (e) {
         return Response.ok(

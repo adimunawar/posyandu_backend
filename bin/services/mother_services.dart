@@ -18,7 +18,7 @@ class MotherServices {
       final alamat = data['alamat'];
       final goldar = data['gol_darah'];
       final idStaf = data['id_staf'];
-      final posyandu = data['posyandu'];
+      // final posyandu = data['posyandu'];
       try {
         // Create user
 
@@ -29,7 +29,7 @@ class MotherServices {
           'alamat': alamat ?? "",
           'gol_darah': goldar,
           'id_staf': idStaf,
-          'posyandu': posyandu,
+          // 'posyandu': posyandu,
         });
         if (creatUser > 0) {
           // final userData =
@@ -74,7 +74,7 @@ class MotherServices {
       final namaSuami = data['nama_suami'];
       final alamat = data['alamat'];
       final goldar = data['gol_darah'];
-      final posyandu = data['posyandu'];
+      // final posyandu = data['posyandu'];
       final idStaf = data['id_staf'];
       try {
         await db.update(table: 'tb_ibu', updateData: {
@@ -83,7 +83,7 @@ class MotherServices {
           'nama_suami': namaSuami ?? "",
           'alamat': alamat ?? "",
           'gol_darah': goldar,
-          'posyandu': posyandu,
+          // 'posyandu': posyandu,
           'id_staf': idStaf,
         }, where: {
           'id': id ?? 0,
